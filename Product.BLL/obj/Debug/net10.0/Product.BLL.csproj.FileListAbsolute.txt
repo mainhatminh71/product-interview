@@ -1,0 +1,15 @@
+C:\Users\Mainh.NHAT-MINH\source\repos\Product\Product.BLL\bin\Debug\net10.0\Product.BLL.deps.json
+C:\Users\Mainh.NHAT-MINH\source\repos\Product\Product.BLL\bin\Debug\net10.0\Product.BLL.dll
+C:\Users\Mainh.NHAT-MINH\source\repos\Product\Product.BLL\bin\Debug\net10.0\Product.BLL.pdb
+C:\Users\Mainh.NHAT-MINH\source\repos\Product\Product.BLL\bin\Debug\net10.0\Product.DAL.dll
+C:\Users\Mainh.NHAT-MINH\source\repos\Product\Product.BLL\bin\Debug\net10.0\Product.DAL.pdb
+C:\Users\Mainh.NHAT-MINH\source\repos\Product\Product.BLL\obj\Debug\net10.0\Product.BLL.csproj.AssemblyReference.cache
+C:\Users\Mainh.NHAT-MINH\source\repos\Product\Product.BLL\obj\Debug\net10.0\Product.BLL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Mainh.NHAT-MINH\source\repos\Product\Product.BLL\obj\Debug\net10.0\Product.BLL.AssemblyInfoInputs.cache
+C:\Users\Mainh.NHAT-MINH\source\repos\Product\Product.BLL\obj\Debug\net10.0\Product.BLL.AssemblyInfo.cs
+C:\Users\Mainh.NHAT-MINH\source\repos\Product\Product.BLL\obj\Debug\net10.0\Product.BLL.csproj.CoreCompileInputs.cache
+C:\Users\Mainh.NHAT-MINH\source\repos\Product\Product.BLL\obj\Debug\net10.0\Product..D3D30DE2.Up2Date
+C:\Users\Mainh.NHAT-MINH\source\repos\Product\Product.BLL\obj\Debug\net10.0\Product.BLL.dll
+C:\Users\Mainh.NHAT-MINH\source\repos\Product\Product.BLL\obj\Debug\net10.0\refint\Product.BLL.dll
+C:\Users\Mainh.NHAT-MINH\source\repos\Product\Product.BLL\obj\Debug\net10.0\Product.BLL.pdb
+C:\Users\Mainh.NHAT-MINH\source\repos\Product\Product.BLL\obj\Debug\net10.0\ref\Product.BLL.dll
