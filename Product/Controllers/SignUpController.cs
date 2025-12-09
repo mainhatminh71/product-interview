@@ -6,7 +6,7 @@ using Product.BLL.Services;
 namespace Product.Controllers
 {
     [ApiController]
-    [Route("[api/auth]")]
+    [Route("api/auth")]
     public class SignUpController : ControllerBase
     {
         private readonly IAuthService _authService;
