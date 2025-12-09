@@ -20,6 +20,7 @@ namespace Product.Controllers
             await _authService.SendOtpAsync(otpRequest.Email);
             return Ok();
         }
+        [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterRequest request, [FromQuery] string otp)
         {
             var user = await _authService.RegisterAsync(request, otp);
