@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Product.BLL.Services;
 using Product.DAL.Data;
 using Product.DAL.Repo;
+using SendGrid;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,8 +12,23 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddTransient<IAccountRepo, AccountRepo>();
+builder.Services.AddTransient<IAuthService, AuthService>();
 builder.Services.AddTransient<IOtpService, MemoryOtpService>();
 builder.Services.AddMemoryCache();
+
+// Đọc SendGrid API Key từ environment variable hoặc configuration
+var sendGridApiKey = Environment.GetEnvironmentVariable("SENDGRID_EMAIL_API_KEY") 
+    ?? Environment.GetEnvironmentVariable("SendGrid__ApiKey")
+    ?? builder.Configuration["SendGrid:ApiKey"];
+
+if (string.IsNullOrWhiteSpace(sendGridApiKey))
+{
+    throw new InvalidOperationException("SendGrid API Key is required. Please set SENDGRID_EMAIL_API_KEY or SendGrid__ApiKey environment variable, or configure SendGrid:ApiKey in appsettings.json");
+}
+
+builder.Services.AddSingleton<SendGridClient>(sp =>
+    new SendGridClient(sendGridApiKey));
+
 
 // Đọc connection string từ environment variable DATABASE_URL (Render) hoặc từ appsettings.json
 var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL");
