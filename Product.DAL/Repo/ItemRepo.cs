@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Product.DAL.Repo
 {
-    internal class ItemRepo
+    public class ItemRepo
     {
     }
 }

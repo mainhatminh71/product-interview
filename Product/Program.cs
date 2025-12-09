@@ -1,5 +1,7 @@
-using Microsoft.EntityFrameworkCore;                
+using Microsoft.EntityFrameworkCore;
+using Product.BLL.Services;
 using Product.DAL.Data;
+using Product.DAL.Repo;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +10,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.Services.AddTransient<IAccountRepo, AccountRepo>();
+builder.Services.AddTransient<IOtpService, MemoryOtpService>();
+builder.Services.AddMemoryCache();
 
 // Đọc connection string từ environment variable DATABASE_URL (Render) hoặc từ appsettings.json
 var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL");
