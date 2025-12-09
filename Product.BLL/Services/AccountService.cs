@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Product.BLL.Services
 {
-    internal class AccountService
+    public class AccountService
     {
     }
 }

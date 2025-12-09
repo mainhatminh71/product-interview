@@ -1,6 +1,11 @@
-﻿namespace Product.Controllers
+﻿using Microsoft.AspNetCore.Mvc;
+
+
+namespace Product.Controllers
 {
-    public class SignUpController
+    [ApiController]
+    [Route("[controller]")]
+    public class SignUpController : ControllerBase
     {
     }
 }
