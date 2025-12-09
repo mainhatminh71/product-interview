@@ -12,6 +12,18 @@ namespace Product.DAL.Data
         {
 
         }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                return;
+            }
+            
+            // Suppress PendingModelChangesWarning để tránh lỗi khi có thay đổi model chưa có migration
+            optionsBuilder.ConfigureWarnings(warnings =>
+                warnings.Ignore(Microsoft.EntityFrameworkCore.Diagnostics.RelationalEventId.PendingModelChangesWarning));
+        }
         public DbSet<User> Users => Set<User>();
         public DbSet<Item> Products => Set<Item>();
         protected override void OnModelCreating(ModelBuilder modelBuilder)

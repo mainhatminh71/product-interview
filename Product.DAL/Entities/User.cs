@@ -19,5 +19,8 @@ namespace Product.DAL.Entities
         public string Email { get; set; }
         [Required, MinLength(5), MaxLength(100)]
         public string Password { get; set; }
+        [MinLength(5)]
+        public string GoogleId { get; set; }
     }
+   
 }

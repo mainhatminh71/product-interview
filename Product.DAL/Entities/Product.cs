@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Product.DAL.Entities
 {
-    [Table("Itemss")]
+    [Table("Items")]
     public class Item
     {
         [Key]
@@ -21,7 +21,6 @@ namespace Product.DAL.Entities
         [Required]
         public int Quantity { get; set; }
         public int UserId { get; set; }
-        [ForeignKey("UserId")]
         public User? User { get; set; }
     }
 }

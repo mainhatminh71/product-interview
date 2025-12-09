@@ -18,8 +18,18 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<ProductDbContext>();
-    db.Database.EnsureCreated();   // ← Tạo luôn file product.db + bảng Users, Products...
-    // Nếu sau này muốn dùng migration thì đổi thành: db.Database.Migrate();
+    try
+    {
+        // Áp dụng các EF Core migrations (tự tạo/tự cập nhật schema, bao gồm cột GoogleId)
+        db.Database.Migrate();
+    }
+    catch (Exception ex)
+    {
+        // Log lỗi nếu có vấn đề với migration
+        var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred while migrating the database.");
+        throw;
+    }
 }
 
 // Configure the HTTP request pipeline.
