@@ -16,6 +16,17 @@ builder.Services.AddTransient<IAuthService, AuthService>();
 builder.Services.AddTransient<IOtpService, MemoryOtpService>();
 builder.Services.AddMemoryCache();
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins("http://localhost:3000",
+            "https://product-interview.vercel.app")
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
+    });
+});
 // Đọc SendGrid API Key từ environment variable hoặc configuration
 var sendGridApiKey = Environment.GetEnvironmentVariable("SENDGRID_EMAIL_API_KEY") 
     ?? Environment.GetEnvironmentVariable("SendGrid__ApiKey")
@@ -30,24 +41,37 @@ builder.Services.AddSingleton<SendGridClient>(sp =>
     new SendGridClient(sendGridApiKey));
 
 
-// Đọc connection string từ environment variable DATABASE_URL (Render) hoặc từ appsettings.json
-var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL");
-if (string.IsNullOrEmpty(connectionString))
-{
-    // Nếu không có DATABASE_URL, đọc từ appsettings.json
-    connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-}
+// Đọc connection string từ environment variable (ưu tiên: DATABASE_URL, ConnectionStrings__DefaultConnection, DefaultConnection) hoặc từ appsettings.json
+var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL")
+    ?? Environment.GetEnvironmentVariable("ConnectionStrings__DefaultConnection")
+    ?? Environment.GetEnvironmentVariable("DefaultConnection")
+    ?? builder.Configuration.GetConnectionString("DefaultConnection");
+Console.WriteLine("Connection String: " + connectionString);
 
 // Parse DATABASE_URL từ format postgresql://user:password@host:port/database
 if (!string.IsNullOrEmpty(connectionString) && connectionString.StartsWith("postgresql://"))
 {
     // Parse PostgreSQL URL format: postgresql://user:password@host:port/database
+    // Hỗ trợ cả URL có port và không có port (dùng 5432 mặc định)
     var uri = new Uri(connectionString);
-    var userInfo = uri.UserInfo.Split(':');
-    var username = Uri.UnescapeDataString(userInfo[0]);
-    var password = userInfo.Length > 1 ? Uri.UnescapeDataString(userInfo[1]) : "";
+    var userInfo = uri.UserInfo;
+    string username = "";
+    string password = "";
+    
+    // Xử lý username:password (password có thể chứa ký tự đặc biệt)
+    var colonIndex = userInfo.IndexOf(':');
+    if (colonIndex > 0)
+    {
+        username = Uri.UnescapeDataString(userInfo.Substring(0, colonIndex));
+        password = Uri.UnescapeDataString(userInfo.Substring(colonIndex + 1));
+    }
+    else
+    {
+        username = Uri.UnescapeDataString(userInfo);
+    }
+    
     var host = uri.Host;
-    var port = uri.Port > 0 ? uri.Port : 5432;
+    var port = uri.Port > 0 ? uri.Port : 5432; // Default PostgreSQL port
     var database = uri.AbsolutePath.TrimStart('/');
     
     // Tạo connection string theo format Npgsql

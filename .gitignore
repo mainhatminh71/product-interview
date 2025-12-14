@@ -341,3 +341,6 @@ MigrationBackup/
 *.sqlite
 *.sqlite3
 
+# User-specific appsettings with sensitive data
+**/appsettings.Development.json
+

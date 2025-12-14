@@ -53,16 +53,14 @@ namespace Product.BLL.Services
             _cache.Remove(email);
             _logger.LogInformation($"Cleared OTP for email {email}");
         }
-        public async Task SendEmailOtpAsync(string email, string otp) // THÊM async
+        public async Task SendEmailOtpAsync(string email, string otp) 
         {
             try
             {
-                // Đọc từ environment variables hoặc configuration (ưu tiên env vars)
                 var fromEmail = Environment.GetEnvironmentVariable("SendGrid__FromEmail")
                     ?? _config["SendGrid:FromEmail"];
                 var fromName = Environment.GetEnvironmentVariable("SendGrid__FromName")
-                    ?? _config["SendGrid:FromName"]
-                    ?? "Product App";
+                    ?? _config["SendGrid:FromName"];
                 
                 if (string.IsNullOrWhiteSpace(fromEmail))
                 {
